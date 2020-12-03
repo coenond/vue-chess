@@ -1,4 +1,6 @@
-class Rank {
+import { Squares } from '@/models/square/ISquare';
+
+class Rank implements Squares {
   private char: string;
 
   constructor(char: string) {
@@ -13,7 +15,7 @@ class Rank {
     return +this.char;
   }
 
-  static all(): Array<Rank> {
+  static all(): Rank[] {
     return [
       new Rank('1'),
       new Rank('2'),

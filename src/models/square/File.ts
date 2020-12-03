@@ -1,4 +1,6 @@
-class File {
+import { Squares } from '@/models/square/ISquare';
+
+class File implements Squares {
   private char: string;
 
   constructor(char: string) {
@@ -9,7 +11,7 @@ class File {
     return this.char;
   }
 
-  static all(): Array<File> {
+  static all(): File[] {
     return [
       new File('A'),
       new File('B'),
