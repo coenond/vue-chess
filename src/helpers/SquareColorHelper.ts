@@ -5,8 +5,7 @@ import Color from '@/models/square/Color';
 
 class SquareColorHelper {
   static getColorForSquare(square: Square): Color {
-    return this.isBlack(square.getFile(), square.getRank())
-      ? Color.Black : Color.White;
+    return SquareColorHelper.getColorForSignature(square.getFile(), square.getRank());
   }
 
   static getColorForSignature(file: File, rank: Rank): Color {
