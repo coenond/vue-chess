@@ -1,0 +1,14 @@
+.square {
+  padding: 20px;
+  text-align: center;
+
+  &__black {
+    background-color: #441a03;
+    color: #fff;
+  }
+
+  &__white {
+    background-color: #b5915f;
+    color: #000;
+  }
+}
