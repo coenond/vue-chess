@@ -2,6 +2,7 @@
   <div
     class="square"
     :class="colorClass">
+    <piece v-if="Math.random() < 0.5" :piece-obj="samplePiece" />
     <div
       v-if="firstFile"
       class="square__annotation square__annotation__file">
@@ -17,12 +18,18 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import Piece from '@/components/representation/Piece.vue';
+import PieceObj from '@/models/pieces/Piece';
+import Pawn from '@/models/pieces/Pawn';
 import SquareColorHelper from '@/helpers/SquareColorHelper';
-import Color from '@/models/square/Color';
+import Color from '@/models/common/Color';
 import Square from '@/models/square/Square';
 
 export default defineComponent({
   name: 'Square',
+  components: {
+    Piece,
+  },
   props: {
     squareObj: {
       type: Square,
@@ -30,6 +37,9 @@ export default defineComponent({
     },
   },
   computed: {
+    samplePiece(): PieceObj {
+      return new Pawn(Color.White);
+    },
     color(): Color {
       return SquareColorHelper.getColorForSquare(this.squareObj);
     },
