@@ -4,13 +4,13 @@
     :class="colorClass">
     <div
       v-if="firstFile"
-      class="square__annotation">
-      <span class="square__annotation__file">{{ fileName }}</span>
+      class="square__annotation square__annotation__file">
+      <span>{{ fileName }}</span>
     </div>
     <div
       v-if="firstRank"
-      class="square__annotation">
-      <span class="square__annotation__rank">{{ rankName }}</span>
+      class="square__annotation square__annotation__rank">
+      <span>{{ rankName }}</span>
     </div>
   </div>
 </template>
