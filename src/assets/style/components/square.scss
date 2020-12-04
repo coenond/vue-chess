@@ -1,6 +1,9 @@
+@import '@/assets/style/sizes.scss';
+
 .square {
-  padding: 20px;
+  // padding: $squarePadding;
   text-align: center;
+  position: relative;
 
   &__black {
     background-color: #441a03;
@@ -10,5 +13,26 @@
   &__white {
     background-color: #b5915f;
     color: #000;
+  }
+
+  &__annotation {
+    position: relative;
+    font-size: 22px;
+    font-weight: 600;
+    color: #b5915f;
+
+    &__file {
+      margin: auto;
+      position: absolute;
+      left: 0; right: 0;
+      margin-top: 90px;
+    }
+
+    &__rank {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      margin-left: -30px;
+    }
   }
 }

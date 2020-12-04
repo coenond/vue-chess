@@ -2,7 +2,16 @@
   <div
     class="square"
     :class="colorClass">
-    <p>{{ squareObj.name() }}</p>
+    <div
+      v-if="firstFile"
+      class="square__annotation">
+      <span class="square__annotation__file">{{ fileName }}</span>
+    </div>
+    <div
+      v-if="firstRank"
+      class="square__annotation">
+      <span class="square__annotation__rank">{{ rankName }}</span>
+    </div>
   </div>
 </template>
 
@@ -25,8 +34,19 @@ export default defineComponent({
       return SquareColorHelper.getColorForSquare(this.squareObj);
     },
     colorClass(): string {
-      console.log(`square__${this.color}`);
       return `square__${this.color}`;
+    },
+    fileName(): string {
+      return this.squareObj.getFile().name();
+    },
+    rankName(): string {
+      return this.squareObj.getRank().name();
+    },
+    firstFile(): boolean {
+      return this.rankName === '1';
+    },
+    firstRank(): boolean {
+      return this.fileName === 'A';
     },
   },
 });
