@@ -1,7 +1,7 @@
 import Square from '@/models/square/Square';
 import File from '@/models/square/File';
 import Rank from '@/models/square/Rank';
-import Color from '@/models/square/Color';
+import Color from '@/models/common/Color';
 
 class SquareColorHelper {
   static getColorForSquare(square: Square): Color {
