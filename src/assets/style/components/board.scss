@@ -1,7 +1,7 @@
 @import '@/assets/style/sizes.scss';
 
 .board {
-  border: 49px solid #462921;
+  // border: 49px solid #462921;
   border-radius: 12px;
   width: calc(#{$gridSize} * #{$squareSize});
   margin: 0 auto;
@@ -11,7 +11,7 @@
   grid-template-rows: repeat($gridSize, $squareSize);
   grid-auto-flow: row;
 
-  -webkit-box-shadow: 0px 0px 16px 7px #bbb;
-  -moz-box-shadow:    0px 0px 16px 7px #bbb;
-  box-shadow:         0px 0px 16px 7px #bbb;  
+  -webkit-box-shadow: 0px 0px 16px 7px #9a9a9a;
+  -moz-box-shadow:    0px 0px 16px 7px #9a9a9a;
+  box-shadow:         0px 0px 16px 7px #9a9a9a;  
 }
