@@ -1,16 +1,16 @@
 import Square from '@/models/square/Square';
 import File from '@/models/square/File';
 import Rank from '@/models/square/Rank';
-import Color from '@/models/common/Color';
+import ColorEnum from '@/models/common/ColorEnum';
 
 class SquareColorHelper {
-  static getColorForSquare(square: Square): Color {
+  static getColorForSquare(square: Square): ColorEnum {
     return SquareColorHelper.getColorForSignature(square.getFile(), square.getRank());
   }
 
-  static getColorForSignature(file: File, rank: Rank): Color {
+  static getColorForSignature(file: File, rank: Rank): ColorEnum {
     return this.isBlack(file, rank)
-      ? Color.Black : Color.White;
+      ? ColorEnum.Black : ColorEnum.White
   }
 
   private static isBlack(file: File, rank: Rank): boolean {

@@ -1,6 +1,6 @@
 import File from '@/models/square/File';
 import Rank from '@/models/square/Rank';
-import Color from '@/models/common/Color';
+import Color from '@/models/common/ColorEnum';
 import { SquareItem } from './ISquareItem';
 
 class BoardSquares {

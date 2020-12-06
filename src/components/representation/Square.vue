@@ -22,7 +22,7 @@ import Piece from '@/components/representation/Piece.vue';
 import PieceObj from '@/models/pieces/Piece';
 import Pawn from '@/models/pieces/Pawn';
 import SquareColorHelper from '@/helpers/SquareColorHelper';
-import Color from '@/models/common/Color';
+import ColorEnum from '@/models/common/ColorEnum';
 import Square from '@/models/square/Square';
 
 export default defineComponent({
@@ -38,9 +38,9 @@ export default defineComponent({
   },
   computed: {
     samplePiece(): PieceObj {
-      return new Pawn(Color.White);
+      return new Pawn(ColorEnum.White);
     },
-    color(): Color {
+    color(): ColorEnum {
       return SquareColorHelper.getColorForSquare(this.squareObj);
     },
     colorClass(): string {
