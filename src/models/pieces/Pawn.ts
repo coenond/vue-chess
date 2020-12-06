@@ -1,13 +1,13 @@
 import Piece from '@/models/pieces/Piece';
-import Color from '@/models/common/Color';
+import ColorEnum from '@/models/common/ColorEnum';
 
 class Pawn extends Piece {
   private static readonly pieceName: string = 'Pawn';
 
-  private static readonly pieceInitials: string = '';
+  private static readonly pieceNotation: string = 'p';
 
-  constructor(color: Color) {
-    super(color, Pawn.pieceName, Pawn.pieceInitials);
+  constructor(color: ColorEnum) {
+    super(color, Pawn.pieceName, Pawn.pieceNotation);
   }
 }
 export default Pawn;
