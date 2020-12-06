@@ -1,5 +1,6 @@
 
 import GameStateHelper from '@/helpers/GameStateHelper';
+import NewGameHelper from '@/helpers/NewGameHelper';
 import Piece from '@/models/pieces/Piece';
 
 /**
@@ -13,12 +14,20 @@ import Piece from '@/models/pieces/Piece';
  * This is needed for legal-move generation.
  */
 class State {
-  private static readonly size: number = 120;
+  private static readonly stateSize: number = 120;
 
   private gameArray: Array<Piece | null>;
 
-  constructor() {
-    this.gameArray = new Array<null>(State.size);
+  constructor(state: Array<Piece | null>) {
+    this.gameArray = state;
+  }
+
+  static newGame(): State {
+    return NewGameHelper.create();
+  }
+
+  static size(): number {
+    return this.stateSize;
   }
 
   offBoardIndexes(): Array<number> {
@@ -34,7 +43,11 @@ class State {
   }
 
   private allIndexes(): Array<number> {
-    return Array.from(Array(State.size), (x, index) => index + 1);
+    return Array.from(Array(State.size()), (x, index) => index + 1);
+  }
+
+  static emptyState(): Array<Piece | null> {
+    return new Array<null>(State.size());
   }
 }
 export default State;
