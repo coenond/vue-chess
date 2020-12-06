@@ -27,6 +27,12 @@ class Square implements Squares {
     return ranks.flatMap((r: Rank): Square[] => files.map((f: File): Square => new Square(f, r)));
   }
 
+  static fromString(position: string): Square {
+    const file: File = new File(position.split('')[0]);
+    const rank: Rank = new Rank(position.split('')[1]);
+    return new Square(file, rank);
+  }
+
   name(): string {
     return `${this.file.name()}${this.rank.name()}`;
   }

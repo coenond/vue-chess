@@ -1,6 +1,8 @@
-export * from './King';
-export * from './Queen';
-export * from './Rook';
-export * from './Bishop';
-export * from './Knight';
-export * from './Pawn';
+import King from './King';
+import Queen from './Queen';
+import Rook from './Rook';
+import Bishop from './Bishop';
+import Knight from './Knight';
+import Pawn from './Pawn';
+
+export { King, Queen, Rook, Bishop, Knight, Pawn };
