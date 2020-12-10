@@ -1,4 +1,3 @@
-
 import GameStateHelper from '@/helpers/GameStateHelper';
 import NewGameHelper from '@/helpers/NewGameHelper';
 import Piece from '@/models/pieces/Piece';
