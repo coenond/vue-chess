@@ -2,7 +2,9 @@
   <div
     class="square"
     :class="colorClass">
-    <piece v-if="Math.random() < 0.5" :piece-obj="samplePiece" />
+    <piece
+      v-if="pieceOnSquare" 
+      :piece-obj="pieceOnSquare" />
     <div
       v-if="firstFile"
       class="square__annotation square__annotation__file">
@@ -19,11 +21,11 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import Piece from '@/components/representation/Piece.vue';
-import PieceObj from '@/models/pieces/Piece';
-import Pawn from '@/models/pieces/Pawn';
 import SquareColorHelper from '@/helpers/SquareColorHelper';
-import ColorEnum from '@/models/common/ColorEnum';
+import State from '@/models/game/State';
+import PieceObj from '@/models/pieces/Piece';
 import Square from '@/models/square/Square';
+import ColorEnum from '@/models/common/ColorEnum';
 
 export default defineComponent({
   name: 'Square',
@@ -35,10 +37,14 @@ export default defineComponent({
       type: Square,
       required: true,
     },
+    state: {
+      type: State,
+      required: true,
+    },
   },
   computed: {
-    samplePiece(): PieceObj {
-      return new Pawn(ColorEnum.White);
+    pieceOnSquare(): PieceObj  | null{
+      return this.state.pieceOnSquare(this.squareObj);
     },
     color(): ColorEnum {
       return SquareColorHelper.getColorForSquare(this.squareObj);
