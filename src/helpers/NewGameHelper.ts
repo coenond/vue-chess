@@ -41,6 +41,13 @@ class NewGameHelper {
     return positions;
   }
 
+  /**
+   * For each color on the board the pieces are on the same file.
+   * The only difference is the rank. All the major and minor white
+   * pieces are on rank 1, for black that's rank 8.
+   * 
+   * @param color
+   */
   private static piecePoistionFor(color: ColorEnum): Array<LayoutPair> {
     const rank: Rank = color === ColorEnum.White ? new Rank("1") : new Rank("8");
     return [
@@ -79,6 +86,12 @@ class NewGameHelper {
     ];
   }
 
+  /**
+   * In a new game. THe pawns are spread over all the files.
+   * All the white pawns are set on rank 2, and the black pawns on rank 7.
+   * 
+   * @param color
+   */
   private static pawnPositionFor(color: ColorEnum): Array<LayoutPair> {
     const rank: Rank = color === ColorEnum.White ? new Rank("2") : new Rank("7");
     return File.all().map((file: File) => {
