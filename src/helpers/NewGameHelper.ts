@@ -33,18 +33,18 @@ class NewGameHelper {
   }
   
   private static allPositions(): Array<LayoutPair> {
-    const positions: Array<LayoutPair> = NewGameHelper.pawnPositionFor(ColorEnum.White);
-    positions.concat(NewGameHelper.pawnPositionFor(ColorEnum.Black));
-    positions.concat(NewGameHelper.piecePoistionFor(ColorEnum.White));
-    positions.concat(NewGameHelper.piecePoistionFor(ColorEnum.Black));
+    const whitePawns: Array<LayoutPair> = NewGameHelper.pawnPositionFor(ColorEnum.White);
+    const blackPawns: Array<LayoutPair> = NewGameHelper.pawnPositionFor(ColorEnum.Black);
+    const whitePieces: Array<LayoutPair> = NewGameHelper.piecePoistionFor(ColorEnum.White);
+    const blackPieces: Array<LayoutPair> = NewGameHelper.piecePoistionFor(ColorEnum.Black);
 
-    return positions;
+    return whitePawns.concat(blackPawns, whitePieces, blackPieces);
   }
 
   /**
    * For each color on the board the pieces are on the same file.
-   * The only difference is the rank. All the major and minor white
-   * pieces are on rank 1, for black that's rank 8.
+   * The only difference is the rank. All the major and minor
+   * white pieces (+ King and Queen) are on rank 1, for black that's rank 8.
    * 
    * @param color
    */
