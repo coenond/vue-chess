@@ -4,7 +4,7 @@ import ColorEnum from '@/models/common/ColorEnum';
 class Bishop extends Piece {
   private static readonly _pieceName: string = 'Bishop';
 
-  private static readonly _pieceNotation: string = 'b';
+  private static readonly _pieceNotation: string = 'B';
 
   constructor(color: ColorEnum) {
     super(color, Bishop.pieceName, Bishop.pieceNotation);
