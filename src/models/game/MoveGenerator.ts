@@ -65,13 +65,23 @@ class MoveGenerator {
       ? this.index > 30 && this.index < 39
       : this.index > 80 && this.index < 89;
     
-    let newIndex: number = this.piece.isBlack() ? this.index + 10 : this.index - 10;
+    let newIndex: number = this.index + (this.piece.isBlack() ? 10 : -10);
     if (!this.state.indexHasPiece(newIndex)) {
       indexes.push(newIndex);
     }
 
-    newIndex = this.piece.isBlack() ? newIndex + 10 : newIndex - 10;
+    newIndex = this.index + (this.piece.isBlack() ? 20 : -20);
     if (onStart && !this.state.indexHasPiece(newIndex)) {
+      indexes.push(newIndex);
+    }
+
+    // Check if Pawn can capture
+    newIndex = this.index + (this.piece.isBlack() ? 9 : -9);
+    if (this.state.indexHasPiece(newIndex)) {
+      indexes.push(newIndex);
+    }
+    newIndex = this.index + (this.piece.isBlack() ? 11 : -11);
+    if (this.state.indexHasPiece(newIndex)) {
       indexes.push(newIndex);
     }
 
