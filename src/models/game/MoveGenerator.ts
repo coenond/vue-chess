@@ -8,6 +8,7 @@ import {
   Knight,
   Pawn,
   Rook,
+  Bishop,
 } from '@/models/pieces';
 
 class MoveGenerator {
@@ -37,6 +38,10 @@ class MoveGenerator {
       }
       case Rook.pieceName: {
           positions = this.rookMovement();
+          break;
+      }
+      case Bishop.pieceName: {
+          positions = this.bishopMovement();
           break;
       }
       default: {
@@ -104,14 +109,17 @@ class MoveGenerator {
     return indexes;
   }
 
-  /**
-   * Recursivly add indexes to the array until the rook
-   * has moved off the board. 
-   * @param indexes
-   */
   private rookMovement(): number[] {
-    const directions: number[] = [1, 10, -1, -10];
+    const directions: number[] = [-1, -10, 1, 10];
+    return this.createMovementForDirections(directions);
+  }
 
+  private bishopMovement(): number[] {
+    const directions: number[] = [-9, -11, 9, 11];
+    return this.createMovementForDirections(directions);
+  }
+
+  private createMovementForDirections(directions: number[]): number[] {
     return directions.flatMap((direction: number) => {
       const indexes: number[] = new Array<number>();
       return this.walk(this.index, indexes, direction);
@@ -121,7 +129,6 @@ class MoveGenerator {
   /**
    * Recursivly walk all the sqaures in a direction (interval).
    * Return the array if off-board is reached or walked against another piece.
-   * @param direction
    */
   private walk(index: number, indexes: number[], direction: number): number[] {
     const newIndex: number = index + direction;
