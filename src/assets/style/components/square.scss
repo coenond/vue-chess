@@ -4,6 +4,7 @@
   // padding: $squarePadding;
   text-align: center;
   position: relative;
+  outline: 0px solid #462921;
 
   &__black {
     background-color: #b58863;
@@ -11,6 +12,12 @@
 
   &__white {
     background-color: #f0d9b5;
+  }
+
+  &__highlighted {
+    outline-width: 10px;
+    outline-offset: -40px;
+    transition: outline-width 0.1s ease-in;
   }
 
   &__annotation {
