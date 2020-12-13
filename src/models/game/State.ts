@@ -57,6 +57,16 @@ class State {
     return this.gameArray.every(index => index === null);
   }
 
+  movePiece(piece: Piece, origin: Square, destination: Square): State {
+    const originIndex: number = StateBoardHelper.indexForSquare(origin);
+    const destinationIndex: number = StateBoardHelper.indexForSquare(destination);
+    const state: Array<Piece | null> = this.gameArray;
+
+    state[originIndex] = null;
+    state[destinationIndex] = piece;
+    return new State(state);
+  }
+
   static get allIndexes(): number[] {
     return Array.from(Array(State.size()), (x, index) => index + 1);
   }
