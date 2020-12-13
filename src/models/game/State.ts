@@ -17,10 +17,10 @@ import Square from '@/models/square/Square';
 class State {
   private static readonly stateSize: number = 120;
 
-  private gameArray: Array<Piece | null>;
+  private _gameArray: Array<Piece | null>;
 
   constructor(state: Array<Piece | null>) {
-    this.gameArray = state;
+    this._gameArray = state;
   }
 
   static newGame(): State {
@@ -31,8 +31,8 @@ class State {
     return this.stateSize;
   }
 
-  getGameArray(): Array<Piece | null>{
-    return this.gameArray;
+  get gameArray(): Array<Piece | null>{
+    return this._gameArray;
   }
 
   pieceOnSquare(square: Square): Piece | null {
@@ -45,23 +45,19 @@ class State {
     return !!this.gameArray[index];
   }
 
-  offBoardIndexes(): Array<number> {
-    return this.allIndexes().filter((index: number) => {
-      return GameStateHelper.indexIsOffBoard(index);
-    });
+  offBoardIndexes(): number[] {
+    return GameStateHelper.filterOffBoardIndexes(State.allIndexes);
   }
 
-  onBoardIndexes(): Array<number> {
-    return this.allIndexes().filter((index: number) => {
-      return GameStateHelper.indexIsOnBoard(index);
-    });
+  onBoardIndexes(): number[] {
+    return GameStateHelper.filterOnBoardIndexes(State.allIndexes);
   }
 
   isEmpty(): boolean {
     return this.gameArray.every(index => index === null);
   }
 
-  private allIndexes(): Array<number> {
+  static get allIndexes(): number[] {
     return Array.from(Array(State.size()), (x, index) => index + 1);
   }
 

@@ -94,7 +94,7 @@ class NewGameHelper {
    */
   private static pawnPositionFor(color: ColorEnum): Array<LayoutPair> {
     const rank: Rank = color === ColorEnum.White ? new Rank("2") : new Rank("7");
-    return File.all().map((file: File) => {
+    return File.all.map((file: File) => {
       return {
         square: new Square(file, rank),
         piece: new Pawn(color),

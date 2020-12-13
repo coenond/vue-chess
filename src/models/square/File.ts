@@ -11,7 +11,7 @@ class File implements Squares {
     return this.char;
   }
 
-  static all(): File[] {
+  static get all(): File[] {
     return [
       new File('A'),
       new File('B'),

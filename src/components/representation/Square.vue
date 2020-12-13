@@ -53,10 +53,10 @@ export default defineComponent({
       return `square__${this.color}`;
     },
     fileName(): string {
-      return this.squareObj.getFile().name();
+      return this.squareObj.file.name();
     },
     rankName(): string {
-      return this.squareObj.getRank().name();
+      return this.squareObj.rank.name();
     },
     firstFile(): boolean {
       return this.rankName === '1';
