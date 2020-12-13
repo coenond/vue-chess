@@ -3,7 +3,7 @@
     <square v-for='s in allSquares'
       :key='s.name()'
       :is-highlighted='highlights.includes(s.name())'
-      :is-selected='squareSelected && s.name() === squareSelected.name()'
+      :is-selected='!!squareSelected && s.name() === squareSelected.name()'
       :square-obj="s" 
       :state="latestState"
       v-on:click="squareClicked(s)" />
