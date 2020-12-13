@@ -47,16 +47,21 @@ class MoveGenerator {
    * to move to.
    */
   private knightMovement(): number[] {
-    return [
-      this.index + 8,
-      this.index + 12,
-      this.index + 19,
-      this.index + 21,
-      this.index - 8,
-      this.index - 12,
-      this.index - 19,
-      this.index - 21,
-    ];
+    const indexes: number[] = new Array<number>();
+    const jumps: number[] = [8, 12, 19, 21];
+
+    jumps.forEach((number) => {
+      let newIndex: number = this.index + number;
+      if (this.state.pieceOnIndex(newIndex)?.color() !== this.piece.color()) {
+        indexes.push(newIndex);
+      }
+      newIndex = this.index - number;
+      if (this.state.pieceOnIndex(newIndex)?.color() !== this.piece.color()) {
+        indexes.push(newIndex);
+      }
+    });
+
+    return indexes;
   }
 
   private pawnMovement(): number[] {
