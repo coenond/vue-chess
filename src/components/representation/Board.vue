@@ -61,7 +61,7 @@ export default defineComponent({
     setSelected(piece: PieceObj, square: SquareObj) {
       this.pieceSelected = piece;
       this.squareSelected = square;
-      const generator: MoveGenerator = new MoveGenerator(piece, square);
+      const generator: MoveGenerator = new MoveGenerator(piece, square, this.latestState);
       this.highlights = generator.allPositions.map((index) => {
         return StateBoardHelper.squareForIndex(index);
       });

@@ -45,6 +45,10 @@ class State {
     return !!this.gameArray[index];
   }
 
+  indexHasPiece(index: number): boolean {
+    return !!this.gameArray[index];
+  }
+
   offBoardIndexes(): number[] {
     return GameStateHelper.filterOffBoardIndexes(State.allIndexes);
   }

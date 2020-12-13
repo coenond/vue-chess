@@ -2,7 +2,8 @@ import StateBoardHelper from '@/helpers/StateBoardHelper';
 import GameStateHelper from '@/helpers/GameStateHelper';
 import Piece from "@/models/pieces/Piece";
 import Square from "@/models/square/Square";
-import ColorEnum from '../common/ColorEnum';
+import State from './State';
+
 import {
   Knight,
   Pawn,
@@ -14,9 +15,12 @@ class MoveGenerator {
 
   private index: number;
 
-  constructor(piece: Piece, square: Square) {
+  private state: State;
+
+  constructor(piece: Piece, square: Square, state: State) {
     this.piece = piece;
     this.index = StateBoardHelper.indexForSquare(square);
+    this.state = state;
   }
 
   get allPositions(): number[] {
@@ -60,15 +64,15 @@ class MoveGenerator {
     const onStart: boolean = this.piece.isBlack()
       ? this.index > 30 && this.index < 39
       : this.index > 80 && this.index < 89;
+    
+    let newIndex: number = this.piece.isBlack() ? this.index + 10 : this.index - 10;
+    if (!this.state.indexHasPiece(newIndex)) {
+      indexes.push(newIndex);
+    }
 
-    indexes.push(
-      this.piece.isBlack() ? this.index + 10 : this.index - 10
-    );
-
-    if (onStart) {
-      indexes.push(
-        this.piece.isBlack() ? this.index + 20 : this.index - 20
-      );
+    newIndex = this.piece.isBlack() ? newIndex + 10 : newIndex - 10;
+    if (onStart && !this.state.indexHasPiece(newIndex)) {
+      indexes.push(newIndex);
     }
 
     return indexes;
