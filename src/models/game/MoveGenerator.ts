@@ -10,6 +10,7 @@ import {
   Rook,
   Bishop,
   Queen,
+  King,
 } from '@/models/pieces';
 
 class MoveGenerator {
@@ -47,6 +48,10 @@ class MoveGenerator {
       }
       case Queen.pieceName: {
           positions = this.queenMovment();
+          break;
+      }
+      case King.pieceName: {
+          positions = this.kingMovement();
           break;
       }
       default: {
@@ -112,6 +117,18 @@ class MoveGenerator {
     }
 
     return indexes;
+  }
+
+  private kingMovement(): number[] {
+    const directions: number[] = [-11, -10, -9, -1, 1, 9, 10, 11];
+    const indexes: number[] = directions.map((direction: number) => {
+      return this.index + direction
+    });
+
+    return indexes.filter((index: number) => {
+      return !GameStateHelper.indexIsOffBoard(index) &&
+        !this.squareHasPieceOfSameColor(index);
+    });
   }
 
   private rookMovement(): number[] {
