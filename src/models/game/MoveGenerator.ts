@@ -7,6 +7,7 @@ import State from './State';
 import {
   Knight,
   Pawn,
+  Rook,
 } from '@/models/pieces';
 
 class MoveGenerator {
@@ -34,6 +35,10 @@ class MoveGenerator {
           positions = this.pawnMovement();
           break;
       }
+      case Rook.pieceName: {
+          positions = this.rookMovement();
+          break;
+      }
       default: {
         positions = [];
       }
@@ -52,11 +57,11 @@ class MoveGenerator {
 
     jumps.forEach((number) => {
       let newIndex: number = this.index + number;
-      if (this.state.pieceOnIndex(newIndex)?.color() !== this.piece.color()) {
+      if (!this.squareHasPieceOfSameColor(newIndex)) {
         indexes.push(newIndex);
       }
       newIndex = this.index - number;
-      if (this.state.pieceOnIndex(newIndex)?.color() !== this.piece.color()) {
+      if (!this.squareHasPieceOfSameColor(newIndex)) {
         indexes.push(newIndex);
       }
     });
@@ -84,14 +89,14 @@ class MoveGenerator {
     newIndex = this.index + (this.piece.isBlack() ? 9 : -9);
     if (
       this.state.indexHasPiece(newIndex) &&
-      this.state.pieceOnIndex(newIndex)?.color() !== this.piece.color()
+      !this.squareHasPieceOfSameColor(newIndex)
     ) {
       indexes.push(newIndex);
     }
     newIndex = this.index + (this.piece.isBlack() ? 11 : -11);
     if (
       this.state.indexHasPiece(newIndex) &&
-      this.state.pieceOnIndex(newIndex)?.color() !== this.piece.color()
+      !this.squareHasPieceOfSameColor(newIndex)
     ) {
       indexes.push(newIndex);
     }
@@ -104,15 +109,45 @@ class MoveGenerator {
    * has moved off the board. 
    * @param indexes
    */
-  // private rookMovement(indexes: number[]): number[] {
-  //   const newIndex: number = this.index + 1;
-    
-  //   if (GameStateHelper.indexIsOffBoard(newIndex)) {
-  //     return indexes;
-  //   }
+  private rookMovement(): number[] {
+    const directions: number[] = [1, 10, -1, -10];
 
-  //   indexes.push(newIndex);
-  //   return this.rookMovement(indexes);
-  // }
+    return directions.flatMap((direction: number) => {
+      const indexes: number[] = new Array<number>();
+      return this.walk(this.index, indexes, direction);
+    });
+  }
+
+  /**
+   * Recursivly walk all the sqaures in a direction (interval).
+   * Return the array if off-board is reached or walked against another piece.
+   * @param direction
+   */
+  private walk(index: number, indexes: number[], direction: number): number[] {
+    const newIndex: number = index + direction;
+    
+    if (
+      GameStateHelper.indexIsOffBoard(newIndex) ||
+      this.squareHasPieceOfSameColor(newIndex)
+    ) {
+      return indexes;
+    }
+
+    indexes.push(newIndex);
+
+    if (this.state.indexHasPiece(newIndex)) {
+      return indexes;
+    }
+
+    return this.walk(newIndex, indexes, direction);
+  }
+
+  private squareHasPieceOfSameColor(index: number): boolean {
+    if (!this.state.indexHasPiece(index)) {
+      return false;
+    }
+
+    return this.state.pieceOnIndex(index)?.color() === this.piece.color()
+  }
 }
 export default MoveGenerator;
