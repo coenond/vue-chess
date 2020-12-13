@@ -24,6 +24,10 @@ class Piece {
     return this.pieceColor;
   }
 
+  isBlack(): boolean {
+    return this.pieceColor === ColorEnum.Black;
+  }
+
   name(): string {
     return this.pieceName;
   }
