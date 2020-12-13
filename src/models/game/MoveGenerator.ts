@@ -9,6 +9,7 @@ import {
   Pawn,
   Rook,
   Bishop,
+  Queen,
 } from '@/models/pieces';
 
 class MoveGenerator {
@@ -42,6 +43,10 @@ class MoveGenerator {
       }
       case Bishop.pieceName: {
           positions = this.bishopMovement();
+          break;
+      }
+      case Queen.pieceName: {
+          positions = this.queenMovment();
           break;
       }
       default: {
@@ -116,6 +121,11 @@ class MoveGenerator {
 
   private bishopMovement(): number[] {
     const directions: number[] = [-9, -11, 9, 11];
+    return this.createMovementForDirections(directions);
+  }
+
+  private queenMovment(): number[] {
+    const directions: number[] = [-1, -9, -10, -11, 1, 9, 10, 11];
     return this.createMovementForDirections(directions);
   }
 
