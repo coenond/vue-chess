@@ -3,6 +3,7 @@
     <square v-for='s in allSquares'
       :key='s.name()'
       :is-highlighted='highlights.includes(s.name())'
+      :is-selected='squareSelected && s.name() === squareSelected.name()'
       :square-obj="s" 
       :state="latestState"
       v-on:click="squareClicked(s)" />
@@ -61,7 +62,7 @@ export default defineComponent({
     setSelected(piece: PieceObj, square: SquareObj) {
       this.pieceSelected = piece;
       this.squareSelected = square;
-      const generator: MoveGenerator = new MoveGenerator(piece, square);
+      const generator: MoveGenerator = new MoveGenerator(piece, square, this.latestState);
       this.highlights = generator.allPositions.map((index) => {
         return StateBoardHelper.squareForIndex(index);
       });

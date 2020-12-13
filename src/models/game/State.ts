@@ -40,8 +40,16 @@ class State {
     return this.gameArray[index];
   }
 
+  pieceOnIndex(index: number): Piece | null {
+    return this.gameArray[index];
+  }
+
   squareHasPiece(square: Square): boolean {
     const index: number = StateBoardHelper.indexForSquare(square);
+    return !!this.gameArray[index];
+  }
+
+  indexHasPiece(index: number): boolean {
     return !!this.gameArray[index];
   }
 

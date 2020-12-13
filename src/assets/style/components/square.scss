@@ -17,7 +17,16 @@
   &__highlighted {
     outline-width: 10px;
     outline-offset: -40px;
-    transition: outline-width 0.1s ease-in;
+  }
+
+  &__selected {
+    outline-width: 2px;
+    outline-offset: -2px;
+  }
+
+  &__capture {
+  outline: 4px solid #841d00;
+    outline-offset: -4px;
   }
 
   &__annotation {
