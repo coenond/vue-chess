@@ -77,11 +77,17 @@ class MoveGenerator {
 
     // Check if Pawn can capture
     newIndex = this.index + (this.piece.isBlack() ? 9 : -9);
-    if (this.state.indexHasPiece(newIndex)) {
+    if (
+      this.state.indexHasPiece(newIndex) &&
+      this.state.pieceOnIndex(newIndex)?.color() !== this.piece.color()
+    ) {
       indexes.push(newIndex);
     }
     newIndex = this.index + (this.piece.isBlack() ? 11 : -11);
-    if (this.state.indexHasPiece(newIndex)) {
+    if (
+      this.state.indexHasPiece(newIndex) &&
+      this.state.pieceOnIndex(newIndex)?.color() !== this.piece.color()
+    ) {
       indexes.push(newIndex);
     }
 
