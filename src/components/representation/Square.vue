@@ -45,8 +45,15 @@ export default defineComponent({
       type: Boolean,
       required: true,
     },
+    isSelected: {
+      type: Boolean,
+      required: true,
+    },
   },
   computed: {
+    squareHasPiece(): boolean {
+      return this.state.squareHasPiece(this.squareObj);
+    },
     pieceOnSquare(): PieceObj | null {
       return this.state.pieceOnSquare(this.squareObj);
     },
@@ -55,9 +62,11 @@ export default defineComponent({
     },
     squareClass(): string {
       // eslint-disable-next-line @typescript-eslint/no-inferrable-types
-      const colorClass: string = `square__${this.color}`;
-      const highlightClass: string = this.isHighlighted ? 'square__highlighted' : '';
-      return `${colorClass} ${highlightClass}`;
+      const colorClass: string = `square__${this.color} `;
+      const highlightClass: string = !this.squareHasPiece && this.isHighlighted ? 'square__highlighted ' : '';
+      const selectedClass: string = this.isSelected ? 'square__selected ' : '';
+      const captureClass: string = this.captureTarget ? 'square__capture ' : '';
+      return `${colorClass}${highlightClass}${selectedClass}${captureClass}`;
     },
     fileName(): string {
       return this.squareObj.file.name();
@@ -71,6 +80,9 @@ export default defineComponent({
     firstRank(): boolean {
       return this.fileName === 'A';
     },
+    captureTarget(): boolean {
+      return this.squareHasPiece && this.isHighlighted && !this.isSelected;
+    }
   },
 });
 </script>
