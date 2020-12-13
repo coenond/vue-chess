@@ -1,9 +1,9 @@
 <template>
   <div
     class="square"
-    :class="colorClass">
+    :class="squareClass">
     <piece
-      v-if="pieceOnSquare" 
+      v-if="pieceOnSquare"
       :piece-obj="pieceOnSquare" />
     <div
       v-if="firstFile"
@@ -41,22 +41,29 @@ export default defineComponent({
       type: State,
       required: true,
     },
+    isHighlighted: {
+      type: Boolean,
+      required: true,
+    },
   },
   computed: {
-    pieceOnSquare(): PieceObj  | null{
+    pieceOnSquare(): PieceObj | null {
       return this.state.pieceOnSquare(this.squareObj);
     },
     color(): ColorEnum {
       return SquareColorHelper.getColorForSquare(this.squareObj);
     },
-    colorClass(): string {
-      return `square__${this.color}`;
+    squareClass(): string {
+      // eslint-disable-next-line @typescript-eslint/no-inferrable-types
+      const colorClass: string = `square__${this.color}`;
+      const highlightClass: string = this.isHighlighted ? 'square__highlighted' : '';
+      return `${colorClass} ${highlightClass}`;
     },
     fileName(): string {
-      return this.squareObj.getFile().name();
+      return this.squareObj.file.name();
     },
     rankName(): string {
-      return this.squareObj.getRank().name();
+      return this.squareObj.rank.name();
     },
     firstFile(): boolean {
       return this.rankName === '1';

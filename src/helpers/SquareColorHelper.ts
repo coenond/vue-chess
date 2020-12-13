@@ -5,7 +5,7 @@ import ColorEnum from '@/models/common/ColorEnum';
 
 class SquareColorHelper {
   static getColorForSquare(square: Square): ColorEnum {
-    return SquareColorHelper.getColorForSignature(square.getFile(), square.getRank());
+    return SquareColorHelper.getColorForSignature(square.file, square.rank);
   }
 
   static getColorForSignature(file: File, rank: Rank): ColorEnum {

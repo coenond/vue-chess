@@ -3,27 +3,27 @@ import Rank from '@/models/square/Rank';
 import { Squares } from '@/models/square/ISquare';
 
 class Square implements Squares {
-  private file: File;
+  private _file: File;
 
-  private rank: Rank;
+  private _rank: Rank;
 
   constructor(file: File, rank: Rank) {
-    this.file = file;
-    this.rank = rank;
+    this._file = file;
+    this._rank = rank;
   }
 
-  getFile(): File {
-    return this.file;
+  get file(): File {
+    return this._file;
   }
 
-  getRank(): Rank {
-    return this.rank;
+  get rank(): Rank {
+    return this._rank;
   }
 
   static all(): Square[] {
     // Reverse the ranks for the right board layout.
-    const ranks: Rank[] = Rank.all().reverse();
-    const files: File[] = File.all();
+    const ranks: Rank[] = Rank.all.reverse();
+    const files: File[] = File.all;
     return ranks.flatMap((r: Rank): Square[] => files.map((f: File): Square => new Square(f, r)));
   }
 

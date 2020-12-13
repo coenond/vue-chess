@@ -15,7 +15,7 @@ class Rank implements Squares {
     return +this.char;
   }
 
-  static all(): Rank[] {
+  static get all(): Rank[] {
     return [
       new Rank('1'),
       new Rank('2'),

@@ -12,16 +12,16 @@ describe('NewGameHelper.ts', () => {
   });
 
   it('should leave middle ranks empty', () => {
-    const rank3: Square[] = File.all().map((file: File) => {
+    const rank3: Square[] = File.all.map((file: File) => {
       return new Square(file, new Rank('3'));
     });
-    const rank4: Square[] = File.all().map((file: File) => {
+    const rank4: Square[] = File.all.map((file: File) => {
       return new Square(file, new Rank('4'));
     });
-    const rank5: Square[] = File.all().map((file: File) => {
+    const rank5: Square[] = File.all.map((file: File) => {
       return new Square(file, new Rank('5'));
     });
-    const rank6: Square[] = File.all().map((file: File) => {
+    const rank6: Square[] = File.all.map((file: File) => {
       return new Square(file, new Rank('6'));
     });
     const allEmptySquares: Square [] = rank3.concat(rank4, rank5, rank6);
@@ -32,16 +32,16 @@ describe('NewGameHelper.ts', () => {
   });
 
   it('should should have filled ranks', () => {
-    const rank1: Square[] = File.all().map((file: File) => {
+    const rank1: Square[] = File.all.map((file: File) => {
       return new Square(file, new Rank('1'));
     });
-    const rank2: Square[] = File.all().map((file: File) => {
+    const rank2: Square[] = File.all.map((file: File) => {
       return new Square(file, new Rank('2'));
     });
-    const rank7: Square[] = File.all().map((file: File) => {
+    const rank7: Square[] = File.all.map((file: File) => {
       return new Square(file, new Rank('7'));
     });
-    const rank8: Square[] = File.all().map((file: File) => {
+    const rank8: Square[] = File.all.map((file: File) => {
       return new Square(file, new Rank('8'));
     });
     const allFilledSquares: Square [] = rank1.concat(rank2, rank7, rank8);
