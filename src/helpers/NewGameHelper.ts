@@ -52,35 +52,35 @@ class NewGameHelper {
     const rank: Rank = color === ColorEnum.White ? new Rank("1") : new Rank("8");
     return [
       {
-        square: new Square(new File("A"), rank),
+        square: new Square(new File("a"), rank),
         piece: new Rook(color),
       },
       {
-        square: new Square(new File("B"), rank),
+        square: new Square(new File("b"), rank),
         piece: new Knight(color),
       },
       {
-        square: new Square(new File("C"), rank),
+        square: new Square(new File("c"), rank),
         piece: new Bishop(color),
       },
       {
-        square: new Square(new File("D"), rank),
+        square: new Square(new File("d"), rank),
         piece: new Queen(color),
       },
       {
-        square: new Square(new File("E"), rank),
+        square: new Square(new File("e"), rank),
         piece: new King(color),
       },
       {
-        square: new Square(new File("F"), rank),
+        square: new Square(new File("f"), rank),
         piece: new Bishop(color),
       },
       {
-        square: new Square(new File("G"), rank),
+        square: new Square(new File("g"), rank),
         piece: new Knight(color),
       },
       {
-        square: new Square(new File("H"), rank),
+        square: new Square(new File("h"), rank),
         piece: new Rook(color),
       },
     ];
