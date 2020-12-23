@@ -4,7 +4,7 @@ import ColorEnum from '@/models/common/ColorEnum';
 class Knight extends Piece {
   private static readonly _pieceName: string = 'Knight';
 
-  private static readonly _pieceNotation: string = 'n';
+  private static readonly _pieceNotation: string = 'N';
 
   constructor(color: ColorEnum) {
     super(color, Knight.pieceName, Knight.pieceNotation);
