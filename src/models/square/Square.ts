@@ -1,8 +1,7 @@
 import File from '@/models/square/File';
 import Rank from '@/models/square/Rank';
-import { Squares } from '@/models/square/ISquare';
 
-class Square implements Squares {
+class Square {
   private _file: File;
 
   private _rank: Rank;
@@ -20,6 +19,10 @@ class Square implements Squares {
     return this._rank;
   }
 
+  get name(): string {
+    return `${this.file.name}${this.rank.name}`;
+  }
+
   static all(): Square[] {
     // Reverse the ranks for the right board layout.
     const ranks: Rank[] = Rank.all.reverse();
@@ -31,10 +34,6 @@ class Square implements Squares {
     const file: File = new File(position.split('')[0]);
     const rank: Rank = new Rank(position.split('')[1]);
     return new Square(file, rank);
-  }
-
-  name(): string {
-    return `${this.file.name()}${this.rank.name()}`;
   }
 }
 export default Square;

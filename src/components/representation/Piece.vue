@@ -16,7 +16,7 @@ export default defineComponent({
   },
   computed: {
     file(): string {
-      return this.pieceObj?.imgFile() || '';
+      return this.pieceObj?.imgFile || '';
     }
   },
 });

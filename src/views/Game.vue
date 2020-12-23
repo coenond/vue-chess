@@ -1,6 +1,13 @@
 <template>
   <div class="game">
     <h1>Chess Game</h1>
+    <button v-on:click="resetGame()">
+      Reset game
+    </button> | 
+    <button v-on:click="clearBoard()">
+      Clear Board
+    </button>
+    <br><br>
     <board :state="state"/>
   </div>
 </template>
@@ -25,6 +32,14 @@ export default defineComponent({
     if (this.state.isEmpty()) {
       this.state = NewGameHelper.create();
     }
+  },
+  methods: {
+    resetGame(): void {
+      this.state = State.newGame();
+    },
+    clearBoard(): void {
+      this.state = State.emptyState();
+    },
   }
 });
 </script>

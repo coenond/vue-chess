@@ -1,9 +1,9 @@
 <template>
   <div class="board">
     <square v-for='s in allSquares'
-      :key='s.name()'
-      :is-highlighted='highlights.includes(s.name())'
-      :is-selected='!!squareSelected && s.name() === squareSelected.name()'
+      :key='s.name'
+      :is-highlighted='highlights.includes(s.name)'
+      :is-selected='!!squareSelected && s.name === squareSelected.name'
       :square-obj="s" 
       :state="latestState"
       v-on:click="squareClicked(s)" />
@@ -39,6 +39,11 @@ export default defineComponent({
       latestState: this.state,
     }
   },
+  watch: {
+    state: function (newState: State): void {
+      this.latestState = newState;
+    }
+  },
   computed: {
     allSquares(): SquareObj[] {
       return SquareObj.all();
@@ -47,7 +52,7 @@ export default defineComponent({
   methods: {
     squareClicked(clickedSquare: SquareObj) {
       // Move piece if highlighted square is clicked
-      if (this.highlights.includes(clickedSquare.name()) && !!this.pieceSelected && !!this.squareSelected) {
+      if (this.highlights.includes(clickedSquare.name) && !!this.pieceSelected && !!this.squareSelected) {
         this.latestState = this.latestState.movePiece(this.pieceSelected, this.squareSelected, clickedSquare);
         this.resetSelected();
         return;

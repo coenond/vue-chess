@@ -13,7 +13,7 @@ interface IndexBased {
 class StateBoardHelper {
   static indexForSquare(square: Square): number {
     const data: SquareBased = boardToState;
-    return data[square.name()];
+    return data[square.name];
   }
   static squareForIndex(index: number): string {
     const data: IndexBased = Object.entries(boardToState)

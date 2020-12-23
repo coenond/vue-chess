@@ -29,7 +29,7 @@ class MoveGenerator {
 
   get allPositions(): number[] {
     let positions: number[];
-    switch(this.piece.name()) {
+    switch(this.piece.name) {
       case Knight.pieceName: {
           positions = this.knightMovement();
           break;
@@ -181,7 +181,7 @@ class MoveGenerator {
       return false;
     }
 
-    return this.state.pieceOnIndex(index)?.color() === this.piece.color()
+    return this.state.pieceOnIndex(index)?.color === this.piece.color
   }
 }
 export default MoveGenerator;

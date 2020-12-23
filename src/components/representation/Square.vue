@@ -69,16 +69,16 @@ export default defineComponent({
       return `${colorClass}${highlightClass}${selectedClass}${captureClass}`;
     },
     fileName(): string {
-      return this.squareObj.file.name();
+      return this.squareObj.file.name;
     },
     rankName(): string {
-      return this.squareObj.rank.name();
+      return this.squareObj.rank.name;
     },
     firstFile(): boolean {
       return this.rankName === '1';
     },
     firstRank(): boolean {
-      return this.fileName === 'A';
+      return this.fileName === 'a';
     },
     captureTarget(): boolean {
       return this.squareHasPiece && this.isHighlighted && !this.isSelected;

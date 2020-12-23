@@ -19,8 +19,11 @@ class State {
 
   private _gameArray: Array<Piece | null>;
 
+  // private _moves: Array<Move | null>;
+
   constructor(state: Array<Piece | null>) {
     this._gameArray = state;
+    // this._moves = Array<null>;
   }
 
   static newGame(): State {
@@ -68,7 +71,7 @@ class State {
   movePiece(piece: Piece, origin: Square, destination: Square): State {
     const originIndex: number = StateBoardHelper.indexForSquare(origin);
     const destinationIndex: number = StateBoardHelper.indexForSquare(destination);
-    const state: Array<Piece | null> = this.gameArray;
+    const state: Array<Piece | null> = this._gameArray;
 
     state[originIndex] = null;
     state[destinationIndex] = piece;

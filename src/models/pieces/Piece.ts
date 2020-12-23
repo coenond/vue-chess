@@ -1,52 +1,52 @@
 import ColorEnum from '@/models/common/ColorEnum';
 
 class Piece {
-  private pieceColor: ColorEnum;
+  private _color: ColorEnum;
 
-  private pieceName: string;
+  private _name: string;
 
-  private pieceNotation: string;
+  private _notation: string;
 
-  private pieceIdentifier: string;
+  private _identifier: string;
 
   constructor(
     color: ColorEnum,
     name: string,
     notation: string,
   ) {
-    this.pieceColor = color;
-    this.pieceName = name;
-    this.pieceNotation = notation;
-    this.pieceIdentifier = this.createId();
+    this._color = color;
+    this._name = name;
+    this._notation = notation;
+    this._identifier = this.createId();
   }
 
-  color(): ColorEnum {
-    return this.pieceColor;
+  get color(): ColorEnum {
+    return this._color;
+  }
+
+  get name(): string {
+    return this._name;
+  }
+
+  get notation(): string {
+    return this._notation;
+  }
+
+  get id(): string {
+    return this._identifier;
+  }
+
+  get imgFile(): string {
+    return `${this._name.toLocaleLowerCase()}_${this._color}.svg`;
   }
 
   isBlack(): boolean {
-    return this.pieceColor === ColorEnum.Black;
-  }
-
-  name(): string {
-    return this.pieceName;
-  }
-
-  notation(): string {
-    return this.pieceNotation;
-  }
-
-  id(): string {
-    return this.pieceIdentifier;
-  }
-
-  imgFile(): string {
-    return `${this.pieceName.toLocaleLowerCase()}_${this.pieceColor}.svg`;
+    return this._color === ColorEnum.Black;
   }
 
   private createId(): string {
-    const color = this.pieceColor.charAt(0).toLowerCase();
-    return `${color}${this.pieceNotation}`;
+    const color = this._color.charAt(0).toLowerCase();
+    return `${color}${this._notation}`;
   }
 }
 export default Piece;

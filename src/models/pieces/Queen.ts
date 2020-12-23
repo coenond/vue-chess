@@ -2,20 +2,20 @@ import Piece from '@/models/pieces/Piece';
 import ColorEnum from '@/models/common/ColorEnum';
 
 class Queen extends Piece {
-  private static readonly _pieceName: string = 'Queen';
+  private static readonly _name: string = 'Queen';
 
-  private static readonly _pieceNotation: string = 'Q';
+  private static readonly _notation: string = 'Q';
 
   constructor(color: ColorEnum) {
     super(color, Queen.pieceName, Queen.pieceNotation);
   }
 
   static get pieceName(): string {
-    return this._pieceName;
+    return this._name;
   }
 
   static get pieceNotation(): string {
-    return this._pieceNotation;
+    return this._notation;
   }
 }
 export default Queen;
