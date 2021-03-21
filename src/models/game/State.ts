@@ -3,6 +3,7 @@ import NewGameHelper from '@/helpers/NewGameHelper';
 import StateBoardHelper from '@/helpers/StateBoardHelper';
 import Piece from '@/models/pieces/Piece';
 import Square from '@/models/square/Square';
+import ColorEnum from '../common/ColorEnum';
 
 /**
  * The Game State is hold in an Array with the size of 120.
@@ -18,11 +19,13 @@ class State {
   private static readonly stateSize: number = 120;
 
   private _gameArray: Array<Piece | null>;
+  private _lastMovedColor: ColorEnum | null
 
   // private _moves: Array<Move | null>;
 
   constructor(state: Array<Piece | null>) {
     this._gameArray = state;
+    this._lastMovedColor = null;
     // this._moves = Array<null>;
   }
 
@@ -34,8 +37,12 @@ class State {
     return this.stateSize;
   }
 
-  get gameArray(): Array<Piece | null>{
+  get gameArray(): Array<Piece | null> {
     return this._gameArray;
+  }
+
+  get lastMovedColor(): ColorEnum | null {
+    return this._lastMovedColor;
   }
 
   pieceOnSquare(square: Square): Piece | null {
@@ -72,6 +79,8 @@ class State {
     const originIndex: number = StateBoardHelper.indexForSquare(origin);
     const destinationIndex: number = StateBoardHelper.indexForSquare(destination);
     const state: Array<Piece | null> = this._gameArray;
+
+    this._lastMovedColor = piece.color;
 
     state[originIndex] = null;
     state[destinationIndex] = piece;
