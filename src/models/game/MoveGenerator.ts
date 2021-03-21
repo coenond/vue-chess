@@ -47,7 +47,7 @@ class MoveGenerator {
           break;
       }
       case Queen.pieceName: {
-          positions = this.queenMovment();
+          positions = this.queenMovement();
           break;
       }
       case King.pieceName: {
@@ -141,7 +141,7 @@ class MoveGenerator {
     return this.createMovementForDirections(directions);
   }
 
-  private queenMovment(): number[] {
+  private queenMovement(): number[] {
     const directions: number[] = [-1, -9, -10, -11, 1, 9, 10, 11];
     return this.createMovementForDirections(directions);
   }
@@ -154,7 +154,7 @@ class MoveGenerator {
   }
 
   /**
-   * Recursivly walk all the sqaures in a direction (interval).
+   * Recursively walk all the squares in a direction (interval).
    * Return the array if off-board is reached or walked against another piece.
    */
   private walk(index: number, indexes: number[], direction: number): number[] {
