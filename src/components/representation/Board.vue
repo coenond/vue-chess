@@ -40,7 +40,6 @@ export default defineComponent({
       pieceSelected: null as PieceObj | null,
       latestState: this.state,
       // TODO: Refactor 'lastMove' when game-move-history is implemented
-      lastMovedColor: ColorEnum.Black,
     }
   },
   watch: {
@@ -53,7 +52,9 @@ export default defineComponent({
       return SquareObj.all();
     },
     nextToMove(): ColorEnum {
-      return this.lastMovedColor === ColorEnum.Black ? ColorEnum.White : ColorEnum.Black;
+      return (!this.state.lastMovedColor || this.state.lastMovedColor === ColorEnum.Black)
+        ? ColorEnum.White
+        : ColorEnum.Black;
     }
   },
   methods: {
@@ -61,7 +62,6 @@ export default defineComponent({
       // Move piece if highlighted square is clicked
       if (this.highlights.includes(clickedSquare.name) && !!this.pieceSelected && !!this.squareSelected) {
         this.latestState = this.latestState.movePiece(this.pieceSelected, this.squareSelected, clickedSquare);
-        this.lastMovedColor = this.pieceSelected.color;
         this.resetSelected();
         return;
       }
@@ -73,7 +73,7 @@ export default defineComponent({
       return this.state.pieceOnSquare(square);
     },
     setSelected(piece: PieceObj, square: SquareObj) {
-      if (piece.color === this.lastMovedColor) {
+      if (piece.color === this.state.lastMovedColor) {
         this.resetSelected();
         return;
       }
