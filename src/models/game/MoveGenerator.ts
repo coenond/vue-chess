@@ -15,21 +15,21 @@ import {
 
 class MoveGenerator {
 
-  private piece: Piece;
+  private _piece: Piece;
 
-  private index: number;
+  private _index: number;
 
-  private state: State;
+  private _state: State;
 
   constructor(piece: Piece, square: Square, state: State) {
-    this.piece = piece;
-    this.index = StateBoardHelper.indexForSquare(square);
-    this.state = state;
+    this._piece = piece;
+    this._index = StateBoardHelper.indexForSquare(square);
+    this._state = state;
   }
 
   get allPositions(): number[] {
     let positions: number[];
-    switch(this.piece.name) {
+    switch(this._piece.name) {
       case Knight.pieceName: {
           positions = this.knightMovement();
           break;
@@ -71,11 +71,11 @@ class MoveGenerator {
     const jumps: number[] = [8, 12, 19, 21];
 
     jumps.forEach((number) => {
-      let newIndex: number = this.index + number;
+      let newIndex: number = this._index + number;
       if (!this.squareHasPieceOfSameColor(newIndex)) {
         indexes.push(newIndex);
       }
-      newIndex = this.index - number;
+      newIndex = this._index - number;
       if (!this.squareHasPieceOfSameColor(newIndex)) {
         indexes.push(newIndex);
       }
@@ -86,31 +86,31 @@ class MoveGenerator {
 
   private pawnMovement(): number[] {
     const indexes: number[] = new Array<number>();
-    const onStart: boolean = this.piece.isBlack()
-      ? this.index > 30 && this.index < 39
-      : this.index > 80 && this.index < 89;
+    const onStart: boolean = this._piece.isBlack()
+      ? this._index > 30 && this._index < 39
+      : this._index > 80 && this._index < 89;
     
-    let newIndex: number = this.index + (this.piece.isBlack() ? 10 : -10);
-    if (!this.state.indexHasPiece(newIndex)) {
+    let newIndex: number = this._index + (this._piece.isBlack() ? 10 : -10);
+    if (!this._state.indexHasPiece(newIndex)) {
       indexes.push(newIndex);
     }
 
-    newIndex = this.index + (this.piece.isBlack() ? 20 : -20);
-    if (onStart && !this.state.indexHasPiece(newIndex)) {
+    newIndex = this._index + (this._piece.isBlack() ? 20 : -20);
+    if (onStart && !this._state.indexHasPiece(newIndex)) {
       indexes.push(newIndex);
     }
 
     // Check if Pawn can capture
-    newIndex = this.index + (this.piece.isBlack() ? 9 : -9);
+    newIndex = this._index + (this._piece.isBlack() ? 9 : -9);
     if (
-      this.state.indexHasPiece(newIndex) &&
+      this._state.indexHasPiece(newIndex) &&
       !this.squareHasPieceOfSameColor(newIndex)
     ) {
       indexes.push(newIndex);
     }
-    newIndex = this.index + (this.piece.isBlack() ? 11 : -11);
+    newIndex = this._index + (this._piece.isBlack() ? 11 : -11);
     if (
-      this.state.indexHasPiece(newIndex) &&
+      this._state.indexHasPiece(newIndex) &&
       !this.squareHasPieceOfSameColor(newIndex)
     ) {
       indexes.push(newIndex);
@@ -122,7 +122,7 @@ class MoveGenerator {
   private kingMovement(): number[] {
     const directions: number[] = [-11, -10, -9, -1, 1, 9, 10, 11];
     const indexes: number[] = directions.map((direction: number) => {
-      return this.index + direction
+      return this._index + direction
     });
 
     return indexes.filter((index: number) => {
@@ -149,7 +149,7 @@ class MoveGenerator {
   private createMovementForDirections(directions: number[]): number[] {
     return directions.flatMap((direction: number) => {
       const indexes: number[] = new Array<number>();
-      return this.walk(this.index, indexes, direction);
+      return this.walk(this._index, indexes, direction);
     });
   }
 
@@ -169,7 +169,7 @@ class MoveGenerator {
 
     indexes.push(newIndex);
 
-    if (this.state.indexHasPiece(newIndex)) {
+    if (this._state.indexHasPiece(newIndex)) {
       return indexes;
     }
 
@@ -177,11 +177,11 @@ class MoveGenerator {
   }
 
   private squareHasPieceOfSameColor(index: number): boolean {
-    if (!this.state.indexHasPiece(index)) {
+    if (!this._state.indexHasPiece(index)) {
       return false;
     }
 
-    return this.state.pieceOnIndex(index)?.color === this.piece.color
+    return this._state.pieceOnIndex(index)?.color === this._piece.color
   }
 }
 export default MoveGenerator;
