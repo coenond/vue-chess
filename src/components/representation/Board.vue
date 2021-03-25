@@ -52,7 +52,7 @@ export default defineComponent({
       return SquareObj.all();
     },
     nextToMove(): ColorEnum {
-      return (!this.state.lastMovedColor || this.state.lastMovedColor === ColorEnum.Black)
+      return (!this.latestState.lastMovedColor || this.latestState.lastMovedColor === ColorEnum.Black)
         ? ColorEnum.White
         : ColorEnum.Black;
     }
