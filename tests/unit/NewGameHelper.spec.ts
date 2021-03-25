@@ -8,7 +8,7 @@ describe('NewGameHelper.ts', () => {
   const newGame: State = NewGameHelper.create();
   
   it('Should have all on board indexes', () => {
-    expect(newGame.onBoardIndexes().length).toBe(64);
+    expect(newGame.onBoardIndexes.length).toBe(64);
   });
 
   it('should leave middle ranks empty', () => {
