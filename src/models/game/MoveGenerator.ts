@@ -12,6 +12,7 @@ import {
   Queen,
   King,
 } from '@/models/pieces';
+import CastleSide from './enum/CastleSides';
 
 class MoveGenerator {
 
@@ -124,6 +125,13 @@ class MoveGenerator {
     const indexes: number[] = directions.map((direction: number) => {
       return this._index + direction
     });
+
+    if (this._state.castleRights.allowedTo(CastleSide.QUEEN_SIDE, this._piece.color)) {
+      indexes.push(this._index - 2);
+    }
+    if (this._state.castleRights.allowedTo(CastleSide.KING_SIDE, this._piece.color)) {
+      indexes.push(this._index + 2);
+    }
 
     return indexes.filter((index: number) => {
       return !GameStateHelper.indexIsOffBoard(index) &&
