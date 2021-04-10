@@ -22,21 +22,21 @@ class CastleRights {
   }
 
   removeFor(color: ColorEnum, side?: CastleSide): CastleRights {
-    if (!side) {
-      color === ColorEnum.White ? this.removeAllForWhite() : this.removeAllForBlack();
-    } else {
-      color === ColorEnum.White ? this.removeForWhite(side) : this.removeForBlack(side);
-    }
+    !side
+      ? color === ColorEnum.White ? this.removeAllForWhite() : this.removeAllForBlack()
+      : color === ColorEnum.White ? this.removeForWhite(side) : this.removeForBlack(side);
 
     return this;
   }
 
   private removeAllForWhite(): void {
-    this._whiteKingSide, this._whiteQueenSide = false;
+    this._whiteKingSide = false;
+    this._whiteQueenSide = false;
   }
 
   private removeAllForBlack(): void {
-    this._blackKingSide, this._blackQueenSide = false;
+    this._blackKingSide = false;
+    this._blackQueenSide = false;
   }
 
   private removeForWhite(side: CastleSide): void {
