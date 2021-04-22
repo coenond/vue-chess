@@ -1,3 +1,4 @@
+import CastleHelper from '@/helpers/CastleHelper';
 import GameStateHelper from '@/helpers/GameStateHelper';
 import NewGameHelper from '@/helpers/NewGameHelper';
 import StateBoardHelper from '@/helpers/StateBoardHelper';
@@ -89,7 +90,7 @@ class State {
   movePiece(piece: Piece, origin: Square, destination: Square): State {
     const originIndex: number = StateBoardHelper.indexForSquare(origin);
     const destinationIndex: number = StateBoardHelper.indexForSquare(destination);
-    const state: Array<Piece | null> = this._gameArray;
+    let gameArray: Array<Piece | null> = this._gameArray;
 
     this._lastMovedColor = piece.color;
 
@@ -97,8 +98,13 @@ class State {
       this._castleRights = this.removeCastleRights(piece, origin);
     }
 
-    state[originIndex] = null;
-    state[destinationIndex] = piece;
+    if (CastleHelper.isCastlingMove(piece, origin, destination)) {
+      gameArray = CastleHelper.moveRook(this, destination);
+    }
+
+    gameArray[originIndex] = null;
+    gameArray[destinationIndex] = piece;
+
     return this;
   }
 
