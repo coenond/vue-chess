@@ -1,4 +1,4 @@
-import ColorEnum from "../common/ColorEnum";
+import ColorEnum from "@/models/common/ColorEnum";
 import CastleSide from "./enum/CastleSides";
 
 class CastleRights {
