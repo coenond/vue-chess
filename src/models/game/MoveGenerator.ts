@@ -13,6 +13,7 @@ import {
   King,
 } from '@/models/pieces';
 import CastleSide from './enum/CastleSides';
+import CastleHelper from '@/helpers/CastleHelper';
 
 class MoveGenerator {
 
@@ -126,10 +127,11 @@ class MoveGenerator {
       return this._index + direction
     });
 
-    if (this._state.castleRights.allowedTo(CastleSide.QUEEN_SIDE, this._piece.color)) {
+    if (CastleHelper.canCastle(this._state, this._piece.color, CastleSide.QUEEN_SIDE)) {
       indexes.push(this._index - 2);
     }
-    if (this._state.castleRights.allowedTo(CastleSide.KING_SIDE, this._piece.color)) {
+
+    if (CastleHelper.canCastle(this._state, this._piece.color, CastleSide.KING_SIDE)) {
       indexes.push(this._index + 2);
     }
 
