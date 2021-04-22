@@ -25,11 +25,11 @@ export default defineComponent({
   },
   data() {
     return {
-      state: State.emptyState(),
+      state: State.emptyState,
     };
   },
   beforeMount() {
-    if (this.state.isEmpty()) {
+    if (this.state.isEmpty) {
       this.state = NewGameHelper.create();
     }
   },
@@ -38,7 +38,7 @@ export default defineComponent({
       this.state = State.newGame();
     },
     clearBoard(): void {
-      this.state = State.emptyState();
+      this.state = State.emptyState;
     },
   }
 });

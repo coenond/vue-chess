@@ -12,6 +12,8 @@ import {
   Queen,
   King,
 } from '@/models/pieces';
+import CastleSide from './enum/CastleSides';
+import CastleHelper from '@/helpers/CastleHelper';
 
 class MoveGenerator {
 
@@ -124,6 +126,14 @@ class MoveGenerator {
     const indexes: number[] = directions.map((direction: number) => {
       return this._index + direction
     });
+
+    if (CastleHelper.canCastle(this._state, this._piece.color, CastleSide.QUEEN_SIDE)) {
+      indexes.push(this._index - 2);
+    }
+
+    if (CastleHelper.canCastle(this._state, this._piece.color, CastleSide.KING_SIDE)) {
+      indexes.push(this._index + 2);
+    }
 
     return indexes.filter((index: number) => {
       return !GameStateHelper.indexIsOffBoard(index) &&

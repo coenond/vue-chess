@@ -1,3 +1,4 @@
+import StateBoardHelper from '@/helpers/StateBoardHelper';
 import File from '@/models/square/File';
 import Rank from '@/models/square/Rank';
 
@@ -21,6 +22,10 @@ class Square {
 
   get name(): string {
     return `${this.file.name}${this.rank.name}`;
+  }
+
+  get index(): number {
+    return StateBoardHelper.indexForSquare(this);
   }
 
   static all(): Square[] {

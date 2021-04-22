@@ -1,9 +1,13 @@
+import CastleHelper from '@/helpers/CastleHelper';
 import GameStateHelper from '@/helpers/GameStateHelper';
 import NewGameHelper from '@/helpers/NewGameHelper';
 import StateBoardHelper from '@/helpers/StateBoardHelper';
 import Piece from '@/models/pieces/Piece';
 import Square from '@/models/square/Square';
 import ColorEnum from '../common/ColorEnum';
+import { King, Rook } from '../pieces';
+import CastleRights from './CastleRights';
+import CastleSide from './enum/CastleSides';
 
 /**
  * The Game State is hold in an Array with the size of 120.
@@ -19,13 +23,17 @@ class State {
   private static readonly stateSize: number = 120;
 
   private _gameArray: Array<Piece | null>;
-  private _lastMovedColor: ColorEnum | null
+
+  private _lastMovedColor: ColorEnum | null;
+
+  private _castleRights: CastleRights;
 
   // private _moves: Array<Move | null>;
 
   constructor(state: Array<Piece | null>) {
     this._gameArray = state;
     this._lastMovedColor = null;
+    this._castleRights = new CastleRights();
     // this._moves = Array<null>;
   }
 
@@ -43,6 +51,10 @@ class State {
 
   get lastMovedColor(): ColorEnum | null {
     return this._lastMovedColor;
+  }
+
+  get castleRights(): CastleRights {
+    return this._castleRights;
   }
 
   pieceOnSquare(square: Square): Piece | null {
@@ -63,35 +75,55 @@ class State {
     return !!this.gameArray[index];
   }
 
-  offBoardIndexes(): number[] {
+  get offBoardIndexes(): number[] {
     return GameStateHelper.filterOffBoardIndexes(State.allIndexes);
   }
 
-  onBoardIndexes(): number[] {
+  get onBoardIndexes(): number[] {
     return GameStateHelper.filterOnBoardIndexes(State.allIndexes);
   }
 
-  isEmpty(): boolean {
+  get isEmpty(): boolean {
     return this.gameArray.every(index => index === null);
   }
 
   movePiece(piece: Piece, origin: Square, destination: Square): State {
     const originIndex: number = StateBoardHelper.indexForSquare(origin);
     const destinationIndex: number = StateBoardHelper.indexForSquare(destination);
-    const state: Array<Piece | null> = this._gameArray;
+    let gameArray: Array<Piece | null> = this._gameArray;
 
     this._lastMovedColor = piece.color;
 
-    state[originIndex] = null;
-    state[destinationIndex] = piece;
-    return new State(state);
+    if ([King.name, Rook.name].includes(piece.name)) {
+      this._castleRights = this.removeCastleRights(piece, origin);
+    }
+
+    if (CastleHelper.isCastlingMove(piece, origin, destination)) {
+      gameArray = CastleHelper.moveRook(this, destination);
+    }
+
+    gameArray[originIndex] = null;
+    gameArray[destinationIndex] = piece;
+
+    return this;
+  }
+
+  private removeCastleRights(piece: Piece, position: Square): CastleRights {
+    if (piece.name === King.name) {
+      return this._castleRights.removeFor(piece.color);
+    }
+
+    const side: CastleSide = position.file.name === 'a'
+      ? CastleSide.QUEEN_SIDE : CastleSide.KING_SIDE
+    
+    return this._castleRights.removeFor(piece.color, side);
   }
 
   static get allIndexes(): number[] {
     return Array.from(Array(State.size()), (x, index) => index + 1);
   }
 
-  static emptyState(): State {
+  static get emptyState(): State {
     return new State(Array<null>(State.size()));
   }
 }
