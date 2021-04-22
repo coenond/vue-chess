@@ -1,27 +1,17 @@
 import ColorEnum from "@/models/common/ColorEnum";
-import CastleRights from "@/models/game/CastleRights";
 import CastleSide from "@/models/game/enum/CastleSides";
 import State from "@/models/game/State";
-import Rank from "@/models/square/Rank";
 import Square from "@/models/square/Square";
 
 class CastleHelper {
 
   static canCastle(
     state: State,
-    castleRights: CastleRights,
     color: ColorEnum,
     side: CastleSide
   ): boolean {
-    if (castleRights.allowedTo(side, color)) {
-      return false;
-    }
-
-    if (this.hasPiecesInBetween(state, color, side)) {
-      return false;
-    }
-
-    return true;
+    return state.castleRights.allowedTo(side, color)
+      && !this.hasPiecesInBetween(state, color, side);
   }
 
   private static hasPiecesInBetween(
