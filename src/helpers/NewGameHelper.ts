@@ -35,8 +35,8 @@ class NewGameHelper {
   private static allPositions(): Array<LayoutPair> {
     const whitePawns: Array<LayoutPair> = NewGameHelper.pawnPositionFor(ColorEnum.White);
     const blackPawns: Array<LayoutPair> = NewGameHelper.pawnPositionFor(ColorEnum.Black);
-    const whitePieces: Array<LayoutPair> = NewGameHelper.piecePoistionFor(ColorEnum.White);
-    const blackPieces: Array<LayoutPair> = NewGameHelper.piecePoistionFor(ColorEnum.Black);
+    const whitePieces: Array<LayoutPair> = NewGameHelper.piecePositionFor(ColorEnum.White);
+    const blackPieces: Array<LayoutPair> = NewGameHelper.piecePositionFor(ColorEnum.Black);
 
     return whitePawns.concat(blackPawns, whitePieces, blackPieces);
   }
@@ -48,7 +48,7 @@ class NewGameHelper {
    * 
    * @param color
    */
-  private static piecePoistionFor(color: ColorEnum): Array<LayoutPair> {
+  private static piecePositionFor(color: ColorEnum): Array<LayoutPair> {
     const rank: Rank = color === ColorEnum.White ? new Rank("1") : new Rank("8");
     return [
       {
