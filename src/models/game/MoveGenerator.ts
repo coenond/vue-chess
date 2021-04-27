@@ -1,7 +1,5 @@
-import StateBoardHelper from '@/helpers/StateBoardHelper';
 import GameStateHelper from '@/helpers/GameStateHelper';
 import Piece from "@/models/pieces/Piece";
-import Square from "@/models/square/Square";
 import State from './State';
 
 import {
