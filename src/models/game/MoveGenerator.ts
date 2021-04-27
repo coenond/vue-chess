@@ -15,6 +15,9 @@ import {
 import CastleSide from './enum/CastleSides';
 import CastleHelper from '@/helpers/CastleHelper';
 
+/**
+ * @todo: export move function to own files
+ */
 class MoveGenerator {
 
   private _piece: Piece;
@@ -23,9 +26,9 @@ class MoveGenerator {
 
   private _state: State;
 
-  constructor(piece: Piece, square: Square, state: State) {
+  constructor(piece: Piece, index: number, state: State) {
     this._piece = piece;
-    this._index = StateBoardHelper.indexForSquare(square);
+    this._index = index;
     this._state = state;
   }
 
