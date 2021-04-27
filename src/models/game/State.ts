@@ -1,6 +1,9 @@
+import allVision from '@/helpers/AllVision';
 import CastleHelper from '@/helpers/CastleHelper';
 import GameStateHelper from '@/helpers/GameStateHelper';
+import setsCheck from '@/helpers/IsCheckHelper';
 import NewGameHelper from '@/helpers/NewGameHelper';
+import getOppositeColor from '@/helpers/OppositeColorHelper';
 import StateBoardHelper from '@/helpers/StateBoardHelper';
 import Piece from '@/models/pieces/Piece';
 import Square from '@/models/square/Square';
@@ -28,12 +31,19 @@ class State {
 
   private _castleRights: CastleRights;
 
+  /**
+   * If null, no king is checked, if it has a value,
+   * that color is checked.
+   */
+  private _checkedIndex: number | null;
+
   // private _moves: Array<Move | null>;
 
   constructor(state: Array<Piece | null>) {
     this._gameArray = state;
     this._lastMovedColor = null;
     this._castleRights = new CastleRights();
+    this._checkedIndex = null;
     // this._moves = Array<null>;
   }
 
@@ -55,6 +65,10 @@ class State {
 
   get castleRights(): CastleRights {
     return this._castleRights;
+  }
+
+  get checkedIndex(): number | null {
+    return this._checkedIndex;
   }
 
   pieceOnSquare(square: Square): Piece | null {
@@ -87,6 +101,9 @@ class State {
     return this.gameArray.every(index => index === null);
   }
 
+  /**
+   * @todo Move this responsibility to an action class
+   */
   movePiece(piece: Piece, origin: Square, destination: Square): State {
     const originIndex: number = StateBoardHelper.indexForSquare(origin);
     const destinationIndex: number = StateBoardHelper.indexForSquare(destination);
@@ -104,6 +121,8 @@ class State {
 
     gameArray[originIndex] = null;
     gameArray[destinationIndex] = piece;
+
+    this._checkedIndex = setsCheck(this, piece.color);
 
     return this;
   }
