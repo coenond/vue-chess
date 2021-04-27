@@ -30,6 +30,11 @@
     outline-offset: -4px;
   }
 
+  &__checked {
+  outline: 6px solid red;
+    outline-offset: -6px;
+  }
+
   &__annotation {
     position: relative;
     font-size: 22px;

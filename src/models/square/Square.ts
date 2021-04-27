@@ -1,6 +1,8 @@
+import SquareColorHelper from '@/helpers/SquareColorHelper';
 import StateBoardHelper from '@/helpers/StateBoardHelper';
 import File from '@/models/square/File';
 import Rank from '@/models/square/Rank';
+import ColorEnum from '../common/ColorEnum';
 
 class Square {
   private _file: File;
@@ -26,6 +28,10 @@ class Square {
 
   get index(): number {
     return StateBoardHelper.indexForSquare(this);
+  }
+
+  get color(): ColorEnum {
+    return SquareColorHelper.getColorForSignature(this._file, this._rank);
   }
 
   static all(): Square[] {
