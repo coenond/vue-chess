@@ -3,6 +3,14 @@ import MoveGenerator from "@/models/game/MoveGenerator";
 import State from "@/models/game/State";
 import Piece from "@/models/pieces/Piece";
 
+/**
+ * Get all possible squares for all the pieces of the given colors.
+ * This includes captures.
+ * 
+ * @param state 
+ * @param color 
+ * @returns number[]
+ */
 export default function allVision(state: State, color: ColorEnum): number[] {
   const allIndexes = state.gameArray.flatMap((piece: Piece | null, index: number) => {
     if (!piece || piece.color !== color) { return; }
