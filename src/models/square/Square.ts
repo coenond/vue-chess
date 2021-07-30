@@ -46,5 +46,9 @@ class Square {
     const rank: Rank = new Rank(position.split('')[1]);
     return new Square(file, rank);
   }
+
+  static fromIndex(index: number): Square {
+    return this.fromString(StateBoardHelper.squareForIndex(index));
+  }
 }
 export default Square;
