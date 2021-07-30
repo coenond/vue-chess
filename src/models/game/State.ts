@@ -127,6 +127,20 @@ class State {
     return this;
   }
 
+  /**
+   * Hypothetical moves are used to obtain a new possible future game
+   * state. Without bothering about castling rules. 
+  */
+  hypotheticalMove(originIndex: number, destinationIndex: number): State {
+    const piece: Piece | null = this.pieceOnIndex(originIndex);
+
+    const gameArray: Array<Piece | null> = this._gameArray;
+    gameArray[originIndex] = null;
+    gameArray[destinationIndex] = piece;
+
+    return this;
+  }
+
   private removeCastleRights(piece: Piece, position: Square): CastleRights {
     if (piece.name === King.name) {
       return this._castleRights.removeFor(piece.color);
