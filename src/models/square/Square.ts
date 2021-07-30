@@ -1,6 +1,8 @@
+import SquareColorHelper from '@/helpers/SquareColorHelper';
 import StateBoardHelper from '@/helpers/StateBoardHelper';
 import File from '@/models/square/File';
 import Rank from '@/models/square/Rank';
+import ColorEnum from '../common/ColorEnum';
 
 class Square {
   private _file: File;
@@ -28,6 +30,10 @@ class Square {
     return StateBoardHelper.indexForSquare(this);
   }
 
+  get color(): ColorEnum {
+    return SquareColorHelper.getColorForSignature(this._file, this._rank);
+  }
+
   static all(): Square[] {
     // Reverse the ranks for the right board layout.
     const ranks: Rank[] = Rank.all.reverse();
@@ -39,6 +45,10 @@ class Square {
     const file: File = new File(position.split('')[0]);
     const rank: Rank = new Rank(position.split('')[1]);
     return new Square(file, rank);
+  }
+
+  static fromIndex(index: number): Square {
+    return this.fromString(StateBoardHelper.squareForIndex(index));
   }
 }
 export default Square;

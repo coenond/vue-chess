@@ -21,7 +21,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import Piece from '@/components/representation/Piece.vue';
-import SquareColorHelper from '@/helpers/SquareColorHelper';
 import State from '@/models/game/State';
 import PieceObj from '@/models/pieces/Piece';
 import Square from '@/models/square/Square';
@@ -58,15 +57,18 @@ export default defineComponent({
       return this.state.pieceOnSquare(this.squareObj);
     },
     color(): ColorEnum {
-      return SquareColorHelper.getColorForSquare(this.squareObj);
+      return this.squareObj.color;
     },
     squareClass(): string {
       // eslint-disable-next-line @typescript-eslint/no-inferrable-types
       const colorClass: string = `square__${this.color} `;
-      const highlightClass: string = !this.squareHasPiece && this.isHighlighted ? 'square__highlighted ' : '';
+      const highlightClass: string = !this.squareHasPiece
+        && this.isHighlighted ? 'square__highlighted ' : '';
       const selectedClass: string = this.isSelected ? 'square__selected ' : '';
       const captureClass: string = this.captureTarget ? 'square__capture ' : '';
-      return `${colorClass}${highlightClass}${selectedClass}${captureClass}`;
+      const checkedClass: string = this.isChecked ? 'square__checked ' : '';
+      return `${colorClass}${highlightClass}${selectedClass}
+        ${captureClass}${checkedClass}`;
     },
     fileName(): string {
       return this.squareObj.file.name;
@@ -82,6 +84,10 @@ export default defineComponent({
     },
     captureTarget(): boolean {
       return this.squareHasPiece && this.isHighlighted && !this.isSelected;
+    },
+    isChecked(): boolean {
+      const checkedIndex: number | null = this.state.checkedIndex;
+      return !!checkedIndex && this.squareObj.index === checkedIndex;
     }
   },
 });

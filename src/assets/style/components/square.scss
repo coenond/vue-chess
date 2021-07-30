@@ -4,6 +4,7 @@
   // padding: $squarePadding;
   text-align: center;
   position: relative;
+  border-radius: 3px;
   outline: 0px solid #462921;
 
   &__black {
@@ -27,6 +28,11 @@
   &__capture {
   outline: 4px solid #841d00;
     outline-offset: -4px;
+  }
+
+  &__checked {
+  outline: 6px solid red;
+    outline-offset: -6px;
   }
 
   &__annotation {

@@ -2,15 +2,16 @@ import StateBoardHelper from '@/helpers/StateBoardHelper';
 import Square from '@/models/square/Square';
 
 describe('StateBoardHelper.ts', () => {
+
   it('can get index for square', () => {
-    const a1: Square = Square.fromString('A1');
-    const b2: Square = Square.fromString('B2');
-    const c3: Square = Square.fromString('C3');
-    const d4: Square = Square.fromString('D4');
-    const e5: Square = Square.fromString('E5');
-    const f6: Square = Square.fromString('F6');
-    const g7: Square = Square.fromString('G7');
-    const h8: Square = Square.fromString('H8');
+    const a1: Square = Square.fromString('a1');
+    const b2: Square = Square.fromString('b2');
+    const c3: Square = Square.fromString('c3');
+    const d4: Square = Square.fromString('d4');
+    const e5: Square = Square.fromString('e5');
+    const f6: Square = Square.fromString('f6');
+    const g7: Square = Square.fromString('g7');
+    const h8: Square = Square.fromString('h8');
 
 
     expect(StateBoardHelper.indexForSquare(a1)).toBe(91);
@@ -22,4 +23,16 @@ describe('StateBoardHelper.ts', () => {
     expect(StateBoardHelper.indexForSquare(g7)).toBe(37);
     expect(StateBoardHelper.indexForSquare(h8)).toBe(28);
   });
+
+  it('can get square for index', () => {
+    expect(StateBoardHelper.squareForIndex(21)).toBe('a8');
+    expect(StateBoardHelper.squareForIndex(32)).toBe('b7');
+    expect(StateBoardHelper.squareForIndex(43)).toBe('c6');
+    expect(StateBoardHelper.squareForIndex(54)).toBe('d5');
+    expect(StateBoardHelper.squareForIndex(65)).toBe('e4');
+    expect(StateBoardHelper.squareForIndex(76)).toBe('f3');
+    expect(StateBoardHelper.squareForIndex(87)).toBe('g2');
+    expect(StateBoardHelper.squareForIndex(98)).toBe('h1');
+  });
+
 });

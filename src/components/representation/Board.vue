@@ -45,6 +45,13 @@ export default defineComponent({
   watch: {
     state: function (newState: State): void {
       this.latestState = newState;
+      
+      // Reset the board
+      if (newState.lastMovedColor === null) {
+        this.squareSelected = null;
+        this.pieceSelected = null;
+        this.highlights = Array<string>();
+      }
     }
   },
   computed: {
@@ -80,7 +87,13 @@ export default defineComponent({
 
       this.pieceSelected = piece;
       this.squareSelected = square;
-      const generator: MoveGenerator = new MoveGenerator(piece, square, this.latestState);
+      const index: number = StateBoardHelper.indexForSquare(square);
+      const generator: MoveGenerator = new MoveGenerator(
+        piece,
+        index,
+        this.latestState,
+        this.state.checkedIndex
+      );
       this.highlights = generator.allPositions.map((index) => {
         return StateBoardHelper.squareForIndex(index);
       });

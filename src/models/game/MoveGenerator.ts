@@ -1,7 +1,5 @@
-import StateBoardHelper from '@/helpers/StateBoardHelper';
 import GameStateHelper from '@/helpers/GameStateHelper';
 import Piece from "@/models/pieces/Piece";
-import Square from "@/models/square/Square";
 import State from './State';
 
 import {
@@ -14,7 +12,11 @@ import {
 } from '@/models/pieces';
 import CastleSide from './enum/CastleSides';
 import CastleHelper from '@/helpers/CastleHelper';
+import filterLegalMoves from '@/helpers/LegalMoveHelper';
 
+/**
+ * @todo: export move function to own files
+ */
 class MoveGenerator {
 
   private _piece: Piece;
@@ -23,10 +25,13 @@ class MoveGenerator {
 
   private _state: State;
 
-  constructor(piece: Piece, square: Square, state: State) {
+  private _checkedIndex: number | null;
+
+  constructor(piece: Piece, index: number, state: State, checkedIndex: number | null = null) {
     this._piece = piece;
-    this._index = StateBoardHelper.indexForSquare(square);
+    this._index = index;
     this._state = state;
+    this._checkedIndex = checkedIndex;
   }
 
   get allPositions(): number[] {
@@ -61,7 +66,13 @@ class MoveGenerator {
       }
     }
 
-    return GameStateHelper.filterOnBoardIndexes(positions);
+    positions = GameStateHelper.filterOnBoardIndexes(positions);
+
+    if (this._checkedIndex !== null) {
+      positions = filterLegalMoves(this._state, this._index, positions, this._piece.color);
+    }
+
+    return positions;
   }
 
   /**
