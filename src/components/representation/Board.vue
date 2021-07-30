@@ -45,6 +45,13 @@ export default defineComponent({
   watch: {
     state: function (newState: State): void {
       this.latestState = newState;
+      
+      // Reset the board
+      if (newState.lastMovedColor === null) {
+        this.squareSelected = null;
+        this.pieceSelected = null;
+        this.highlights = Array<string>();
+      }
     }
   },
   computed: {
