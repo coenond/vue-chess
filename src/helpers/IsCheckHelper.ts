@@ -8,7 +8,7 @@ import getOppositeColor from "./OppositeColorHelper";
 
 /**
  * Checks if the king is under check.
- * Return null if there is there is no check.
+ * Return null if not checked check.
  * Return the kings position when under check.
  * 
  * @param state 
