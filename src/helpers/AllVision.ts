@@ -14,8 +14,7 @@ import Piece from "@/models/pieces/Piece";
 export default function allVision(state: State, color: ColorEnum): number[] {
   const allIndexes = state.gameArray.flatMap((piece: Piece | null, index: number) => {
     if (!piece || piece.color !== color) { return; }
-
-    const generator = new MoveGenerator(piece, index, state);
+    const generator = new MoveGenerator(piece, index, state, null);
     return generator.allPositions;
   });
 

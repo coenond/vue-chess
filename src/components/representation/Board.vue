@@ -88,7 +88,12 @@ export default defineComponent({
       this.pieceSelected = piece;
       this.squareSelected = square;
       const index: number = StateBoardHelper.indexForSquare(square);
-      const generator: MoveGenerator =new MoveGenerator(piece, index, this.latestState);
+      const generator: MoveGenerator = new MoveGenerator(
+        piece,
+        index,
+        this.latestState,
+        this.state.checkedIndex
+      );
       this.highlights = generator.allPositions.map((index) => {
         return StateBoardHelper.squareForIndex(index);
       });
