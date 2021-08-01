@@ -2,18 +2,18 @@ class Rank {
 
   private static readonly allChars: string[] = ['1', '2', '3', '4', '5', '6', '7', '8'];
 
-  private char: string;
+  private _char: string;
 
   constructor(char: string) {
-    this.char = char;
+    this._char = char;
   }
 
   get name(): string {
-    return this.char;
+    return this._char;
   }
 
   toNumber(): number {
-    return +this.char;
+    return +this._char;
   }
 
   static get all(): Rank[] {
