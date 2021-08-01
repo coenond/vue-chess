@@ -67,6 +67,14 @@ export class MoveHistory implements ListInterface<Move> {
     return this.traverse().length;
   }
 
+  getLastMove(): Move | null {
+    if (!this._head) {
+      return null;
+    }
+    const lastNode: Node<Move> = this.getLast(this._head);
+    return lastNode.data;
+  }
+
   private getLast(node: Node<Move>): Node<Move> {
     return node.next !== null
       ? this.getLast(node.next)
