@@ -1,4 +1,4 @@
-import Move from "@/models/game/Move";
+import Move from "@/models/moves/Move";
 import { ListInterface } from "./ListInterface";
 import { Node } from "./Node";
 
