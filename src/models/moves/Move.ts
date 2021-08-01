@@ -10,7 +10,7 @@ export default class Move {
     public readonly originPosition: Square,
     public readonly destinationPosition: Square,
     public readonly piece: Piece,
-    public readonly isCapture = false
+    public readonly isCapture: boolean
   ) {
     this.moveNumber = moveNumber;
     this.color = color;
@@ -22,6 +22,7 @@ export default class Move {
 
   /**
    * @todo add Castling notation
+   * @todo add capture notation for pawns
    * @todo add Check notation
    * @todo add Checkmate notation
    * @todo add which rook/knight/queen if necessary

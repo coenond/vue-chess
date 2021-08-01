@@ -124,7 +124,8 @@ class State {
   movePiece(piece: Piece, origin: Square, destination: Square): State {
     const originIndex: number = StateBoardHelper.indexForSquare(origin);
     const destinationIndex: number = StateBoardHelper.indexForSquare(destination);
-    const isCapture: boolean =  this._gameArray[destinationIndex] === null
+    const isCapture: boolean =  this.squareHasPiece(destination)
+
     let gameArray: Array<Piece | null> = this._gameArray;
 
     this._lastMovedColor = piece.color;
