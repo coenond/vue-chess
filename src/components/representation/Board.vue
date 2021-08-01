@@ -9,6 +9,13 @@
       :state="latestState"
       v-on:click="squareClicked(s)" />
   </div>
+  <div class="moveList">
+    <ul>
+      <li v-for="move in moveHistory" :key="move">
+        {{ move.notation }}
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script lang="ts">
@@ -21,6 +28,7 @@ import State from '@/models/game/State';
 import Square from '@/components/representation/Square.vue';
 import StateBoardHelper from '@/helpers/StateBoardHelper';
 import ColorEnum from '@/models/common/ColorEnum';
+import Move from '@/models/moves/Move';
 
 export default defineComponent({
   name: 'Board',
@@ -62,6 +70,9 @@ export default defineComponent({
       return (!this.latestState.lastMovedColor || this.latestState.lastMovedColor === ColorEnum.Black)
         ? ColorEnum.White
         : ColorEnum.Black;
+    },
+    moveHistory(): Move[] {
+      return this.latestState.moveHistory;
     }
   },
   methods: {
