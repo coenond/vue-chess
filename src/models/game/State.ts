@@ -3,13 +3,13 @@ import CastleHelper from '@/helpers/CastleHelper';
 import GameStateHelper from '@/helpers/GameStateHelper';
 import setsCheck from '@/helpers/IsCheckHelper';
 import NewGameHelper from '@/helpers/NewGameHelper';
-import getOppositeColor from '@/helpers/OppositeColorHelper';
 import StateBoardHelper from '@/helpers/StateBoardHelper';
 import Piece from '@/models/pieces/Piece';
 import Square from '@/models/square/Square';
 import ColorEnum from '../common/ColorEnum';
 import { King, Rook } from '../pieces';
 import CastleRights from './CastleRights';
+import { PieceAndIndexDto } from './dto/PieceAndIndex.dto';
 import CastleSide from './enum/CastleSides';
 
 /**
@@ -69,6 +69,18 @@ class State {
 
   get checkedIndex(): number | null {
     return this._checkedIndex;
+  }
+
+  allPiecesAndIndexForColor(color: ColorEnum): Array<PieceAndIndexDto> {
+    const pieceAndIndexes: Array<PieceAndIndexDto> = [];
+
+    this._gameArray.forEach((piece: Piece | null, index) => {
+      if (piece !== null && piece.color === color) {
+        pieceAndIndexes.push({index, piece});
+      }
+    });
+
+    return pieceAndIndexes;
   }
 
   pieceOnSquare(square: Square): Piece | null {
