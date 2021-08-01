@@ -1,15 +1,16 @@
-import allVision from '@/helpers/AllVision';
 import CastleHelper from '@/helpers/CastleHelper';
 import GameStateHelper from '@/helpers/GameStateHelper';
 import setsCheck from '@/helpers/IsCheckHelper';
 import NewGameHelper from '@/helpers/NewGameHelper';
-import getOppositeColor from '@/helpers/OppositeColorHelper';
 import StateBoardHelper from '@/helpers/StateBoardHelper';
 import Piece from '@/models/pieces/Piece';
 import Square from '@/models/square/Square';
 import ColorEnum from '../common/ColorEnum';
+import { MoveHistory } from '../moves/History/MoveHistory';
+import Move from '../moves/Move';
 import { King, Rook } from '../pieces';
 import CastleRights from './CastleRights';
+import { PieceAndIndexDto } from './dto/PieceAndIndex.dto';
 import CastleSide from './enum/CastleSides';
 
 /**
@@ -37,14 +38,14 @@ class State {
    */
   private _checkedIndex: number | null;
 
-  // private _moves: Array<Move | null>;
+  private _moveHistory: MoveHistory;
 
   constructor(state: Array<Piece | null>) {
     this._gameArray = state;
     this._lastMovedColor = null;
     this._castleRights = new CastleRights();
     this._checkedIndex = null;
-    // this._moves = Array<null>;
+    this._moveHistory = new MoveHistory();
   }
 
   static newGame(): State {
@@ -69,6 +70,18 @@ class State {
 
   get checkedIndex(): number | null {
     return this._checkedIndex;
+  }
+
+  allPiecesAndIndexForColor(color: ColorEnum): Array<PieceAndIndexDto> {
+    const pieceAndIndexes: Array<PieceAndIndexDto> = [];
+
+    this._gameArray.forEach((piece: Piece | null, index) => {
+      if (piece !== null && piece.color === color) {
+        pieceAndIndexes.push({index, piece});
+      }
+    });
+
+    return pieceAndIndexes;
   }
 
   pieceOnSquare(square: Square): Piece | null {
@@ -101,12 +114,18 @@ class State {
     return this.gameArray.every(index => index === null);
   }
 
+  get moveHistory(): Move[] {
+    return this._moveHistory.traverse();
+  }
+
   /**
    * @todo Move this responsibility to an action class
    */
   movePiece(piece: Piece, origin: Square, destination: Square): State {
     const originIndex: number = StateBoardHelper.indexForSquare(origin);
     const destinationIndex: number = StateBoardHelper.indexForSquare(destination);
+    const isCapture: boolean =  this.squareHasPiece(destination)
+
     let gameArray: Array<Piece | null> = this._gameArray;
 
     this._lastMovedColor = piece.color;
@@ -123,6 +142,17 @@ class State {
     gameArray[destinationIndex] = piece;
 
     this._checkedIndex = setsCheck(this, piece.color);
+
+    const moveNumber = Math.floor(this._moveHistory.size() / 2) + 1;
+    const move: Move = new Move(
+      moveNumber,
+      piece.color,
+      origin,
+      destination,
+      piece,
+      isCapture
+    );
+    this._moveHistory.insertAtEnd(move);
 
     return this;
   }
